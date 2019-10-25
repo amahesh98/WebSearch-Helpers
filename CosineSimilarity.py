@@ -2,8 +2,10 @@ import math
 
 # cos(D1, Q) = dot_product(TFIDF1, TFIDFq) / sqrt(sum(TFIDF1^2) * sum(TFIDFq^2))
 def cosineSimilarity(termWeights1, termWeights2):
-  if len(termWeights1) != len(termWeights1):
+  if len(termWeights1) != len(termWeights2):
+    print("Error: Lengths of weight vectors do not match")
     return -1
+
   top = 0.0
   sumSquared1 = 0.0
   sumSquared2 = 0.0
