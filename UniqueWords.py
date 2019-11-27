@@ -19,7 +19,9 @@ def getUniqueWords(wordList:[str], porterStem:bool):
   porterStemmer = PorterStemmer()
   for word in wordList:
     if porterStem and word not in stopWords:
-      output.append(porterStemmer.stem(word))
+      word = porterStemmer.stem(word)
+      if word not in output:
+        output.append(word)
     elif word not in output:
       output.append(word)
   output.sort()

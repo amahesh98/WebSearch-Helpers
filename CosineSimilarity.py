@@ -1,7 +1,7 @@
 import math
 
 # cos(D1, Q) = dot_product(TFIDF1, TFIDFq) / sqrt(sum(TFIDF1^2) * sum(TFIDFq^2))
-def cosineSimilarity(termWeights1, termWeights2):
+def cosineSimilarity(termWeights1, termWeights2,):
   if len(termWeights1) != len(termWeights2):
     print("Error: Lengths of weight vectors do not match")
     return -1
@@ -18,13 +18,16 @@ def cosineSimilarity(termWeights1, termWeights2):
   return top/bottom
 
 if __name__ == "__main__":
-  termWeight1 = [0,1,0,0,0,0,0,0,0,0,0]
-  termWeight2 = [0,1,0,0,2,2,0,0,0,1,0]
-  termWeight3 = [0,0,2,0,0,0,2,2,2,0,0]
-  termWeight4 = [2,0,0,2,0,0,0,0,0,0,2]
+  tfidf_q1 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 9.0, 0.0, 0.0, 4.5, 0.0]
+  tfidf_d2 = [0.0, 0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 4.5, 0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+  tfidf_d4 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 9.0, 0.0, 4.5, 0.0]
+  tfidf_d5 = [0.0, 0.0, 0.0, 0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.0, 0.0, 9.0, 0.0, 0.0]
+  tfidf_d6 = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.5, 0.0]
+  tfidf_d8 = [0.0, 0.0, 9.0, 0.0, 0.0, 0.0, 0.0, 4.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-  termWeightQ_Rocchio = [2/9,4/9,2/9,2/9,4/3,2/3,2/9,2/9,2/9,4/9,2/9]
-  termWeightQ2 = [0,1,0,0,2,2,0,0,0,1,0]
-  termWeightQ_TFIDF = [0,0,0,0,2,0,0,0,0,0,0]
-  print(cosineSimilarity(termWeight4, termWeightQ2))
+  print(f"D2: {cosineSimilarity(tfidf_q1, tfidf_d2)}")
+  print(f"D4: {cosineSimilarity(tfidf_q1, tfidf_d4)}")
+  print(f"D5: {cosineSimilarity(tfidf_q1, tfidf_d5)}")
+  print(f"D6: {cosineSimilarity(tfidf_q1, tfidf_d6)}")
+  print(f"D8: {cosineSimilarity(tfidf_q1, tfidf_d2)}")
   
