@@ -42,11 +42,41 @@ def PearsonCorrelation(user1Values:[float], user2Values:[float]):
   user2Values = convertListToZeroAverageList(user2Values)
 
   return cosineSimilarity(user1Values, user2Values)
-  
+
+#Predicts an unknown value given the full dataset
+def predictValue(predictionListIndex:int, valueIndex:int, allUserLists:[[float]], printStatements = False):
+    predictionList = allUserLists[predictionListIndex]
+    totalSimilarity = 0.0
+    averagedAndWeightedRating = 0.0
+    for otherList in allUserLists:
+      #Automatically skips predictionList b/c checks for 0
+      if(otherList[valueIndex] != 0):
+        similarity = PearsonCorrelation(predictionList, otherList)
+        printStatements and print(f"Similarity: {similarity}")
+        if similarity > 0:
+          averagedAndWeightedRating += otherList[valueIndex]*similarity
+          printStatements and print(f"Contribution: {otherList[valueIndex]*similarity}")
+          totalSimilarity += similarity
+    printStatements and print(f"averagedRating: {averagedAndWeightedRating}") and print(f"Total Similarity: {totalSimilarity}")
+    
+    return averagedAndWeightedRating / totalSimilarity
 
 if __name__ == "__main__":
-  A = [4,0,0,5,1,0,0]
-  B = [5,5,4,0,0,0,0]
-  C = [0,0,0,2,4,5,0]
-  print(f"Sim A and B: {PearsonCorrelation(A, B)}")
-  print(f"Sim A and C: {PearsonCorrelation(A, C)}")
+  # A = [4,0,0,5,1,0,0]
+  # B = [5,5,4,0,0,0,0]
+  # C = [0,0,0,2,4,5,0]
+  # print(f"Sim A and B: {PearsonCorrelation(A, B)}")
+  # print(f"Sim A and C: {PearsonCorrelation(A, C)}")
+  A = [4,1,3,5]
+  B = [0,5,4,0]
+  C = [5,4,2,0]
+  D = [2,4,0,3]
+  E = [3,4,5,0]
+
+  fullList = [A, B, C, D, E]
+
+  print(f"B1: {predictValue(1, 0, fullList)}")
+  print(f"B4: {predictValue(1, 3, fullList)}")
+  print(f"C4: {predictValue(2, 3, fullList)}")
+  print(f"D3: {predictValue(3, 2, fullList)}")
+  print(f"E4: {predictValue(4, 3, fullList)}")
